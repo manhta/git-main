@@ -28,5 +28,5 @@ class Nurse : public Person {
             cout << "Số đêm trực: " << shift << endl;
             cout << "Tiền lương: " << salary() << endl;
         }
-        ~Nurse();
+        ~Nurse() {};
 };

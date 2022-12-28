@@ -51,5 +51,5 @@ class Person {
             cout << "Nhập đơn vị: ";in.ignore();getline(in,a.unit);
             return in;
         }
-        virtual ~Person();
+        virtual ~Person() {};
 };
