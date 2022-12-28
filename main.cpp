@@ -22,23 +22,26 @@ void displayMenu() {
 }
 
 void addPerson() {
-    Person a;
-    cin >> a;
-    if (a.getUnit()=="Bác sĩ") {
+    Person temp;
+    cin >> temp;
+    if (temp.getUnit()=="Bác sĩ") {
         int tempDayDr,tempSur;
         cout << "Nhập số ngày làm việc: ";
         cin >> tempDayDr;
         cout << "Nhập số ca phẫu thuật thực hiện: ";
         cin >> tempSur; cin.ignore();
-        Person *p = new Doctor(a,tempDayDr,tempSur);
+        Person *p = new Doctor(temp,tempDayDr,tempSur);
         listPerson.push_back(p);
-    } else if (a.getUnit()=="Y tá") {
+    } else if (temp.getUnit()=="Y tá") {
         int tempDayNs,tempShift;
         cout << "Nhập số ngày làm việc: ";
         cin >> tempDayNs;
         cout << "Nhập số ca trực đêm: ";
         cin >> tempShift; cin.ignore();
-        Person *p = new Nurse(a,tempDayNs,tempShift);
+        Person *p = new Nurse(temp,tempDayNs,tempShift);
+        listPerson.push_back(p);
+    } else {
+        Person *p = new Person(temp);
         listPerson.push_back(p);
     }
 }

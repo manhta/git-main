@@ -18,14 +18,14 @@ class Person {
             this->tel = tel;
             this->unit = unit;
         }
-        virtual long salary() {return 0;}
-
-        void setPerson(Person a) {
-            this->name = a.getName();
-            this->dob = a.getDob();
-            this->tel = a.getTel();
-            this->unit = a.getUnit();
+        Person(const Person &temp) {
+            this->name = temp.name;
+            this->dob = temp.dob;
+            this->tel = temp.tel;
+            this->unit = temp.unit;
         }
+        
+        virtual long salary() {return 0;}
         string getDob() {
             return this->dob;
         }

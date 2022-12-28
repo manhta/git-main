@@ -14,8 +14,8 @@ class Nurse : public Person {
             this->dayNs = dayNs;
             this->shift = shift;
         }
-        Nurse(Person a,int dayNs, int shift) {
-            Person::setPerson(a);
+        Nurse(Person temp,int dayNs, int shift) {
+            Person p(temp);
             this->dayNs = dayNs;
             this->shift = shift;
         }
