@@ -24,7 +24,7 @@ class Person {
             this->tel = temp.tel;
             this->unit = temp.unit;
         }
-        
+
         virtual long salary() {return 0;}
         string getDob() {
             return this->dob;
@@ -51,4 +51,5 @@ class Person {
             cout << "Nhập đơn vị: ";in.ignore();getline(in,a.unit);
             return in;
         }
+        virtual ~Person();
 };

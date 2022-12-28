@@ -29,4 +29,5 @@ class Doctor : public Person {
             cout << "Số ca phẫu thuật thực hiện: " << surgery<< endl;
             cout << "Tiền lương: " << salary() << endl;
         }
+        ~Doctor();
 };

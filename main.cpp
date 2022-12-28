@@ -44,6 +44,7 @@ void addPerson() {
         Person *p = new Person(temp);
         listPerson.push_back(p);
     }
+    delete[] temp;
 }
 
 void printlistPerson() {
