@@ -46,6 +46,25 @@ void addPerson() {
     }
 }
 
+void deletePerson() {}
+void FindPersonHaveSalaryHigherThanX() {
+    long long X;
+    cout << "Nhập số tiền bạn muốn so sánh(vnđ): ";cin >> X;
+    vector<Person*> result;
+    for (int i=0;i<listPerson.size();i++) {
+        if (listPerson[i]->salary()>X) {
+            result.push_back(listPerson[i]);
+        }
+    }
+    if (result.size()==0) {
+        cout << "Không có ai có tiền lương lớn hơn: " << X << "(vnđ)"<<endl;
+    } else {
+        for (int i=0;i<result.size();i++) {
+            result[i]->display();
+        }
+    }
+}
+
 void printlistPerson() {
     if (listPerson.size()==0) {
         cout << "Danh sách cán bộ rỗng\n";
@@ -62,5 +81,5 @@ int main() {
     for (int i=0;i<3;i++) {
         addPerson();
     }
-    printlistPerson();
+    FindPersonHaveSalaryHigherThanX();
 }

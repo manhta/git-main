@@ -14,11 +14,11 @@ class Person {
         Person();
         Person(string name,string dob,string tel,string unit);
         Person(const Person &temp);
-        virtual long salary();
         string getDob();
         string getUnit();
         string getName();
         string getTel();
+        virtual long salary();
         virtual void display();
         friend istream& operator >> (istream& in, Person& a);
         virtual ~Person() {};
