@@ -14,11 +14,6 @@ class Nurse : public Person {
             this->dayNs = dayNs;
             this->shift = shift;
         }
-        Nurse(Person temp,int dayNs, int shift) {
-            Person p(temp);
-            this->dayNs = dayNs;
-            this->shift = shift;
-        }
         long salary() {
             return dayNs*salaryNs+shift*salaryDuty;
         }

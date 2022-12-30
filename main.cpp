@@ -30,7 +30,7 @@ void addPerson() {
         cin >> tempDayDr;
         cout << "Nhập số ca phẫu thuật thực hiện: ";
         cin >> tempSur; cin.ignore();
-        Person *p = new Doctor(temp,tempDayDr,tempSur);
+        Person *p = new Doctor(temp.getName(),temp.getDob(),temp.getTel(),temp.getUnit(),tempDayDr,tempSur);
         listPerson.push_back(p);
     } else if (temp.getUnit()=="Y tá") {
         int tempDayNs,tempShift;
@@ -38,7 +38,7 @@ void addPerson() {
         cin >> tempDayNs;
         cout << "Nhập số ca trực đêm: ";
         cin >> tempShift; cin.ignore();
-        Person *p = new Nurse(temp,tempDayNs,tempShift);
+        Person *p = new Nurse(temp.getName(),temp.getDob(),temp.getTel(),temp.getUnit(),tempDayNs,tempShift);
         listPerson.push_back(p);
     } else {
         Person *p = new Person(temp);
@@ -78,8 +78,7 @@ void printlistPerson() {
 }
 
 int main() {
-    for (int i=0;i<3;i++) {
-        addPerson();
-    }
+    addPerson();
+    addPerson();
     FindPersonHaveSalaryHigherThanX();
 }

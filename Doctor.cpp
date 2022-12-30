@@ -15,11 +15,6 @@ class Doctor : public Person {
             this->dayDr = dayDr;
             this->surgery = surgery;
         }
-        Doctor(Person temp,int dayDr, int surgery) {
-            Person p(temp);
-            this->dayDr = dayDr;
-            this->surgery = surgery;
-        }
         long salary() {
             return dayDr*salaryDr+surgery*salarySurgery;
         }
