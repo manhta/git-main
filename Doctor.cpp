@@ -18,6 +18,12 @@ class Doctor : public Person {
         long salary() {
             return dayDr*salaryDr+surgery*salarySurgery;
         }
+        int getDayDr() {
+            return this->dayDr;
+        }
+        int getSurgery() {
+            return this->surgery;
+        }
         void display() {
             Person::display();
             cout << "Số ngày làm việc: " << dayDr << endl;

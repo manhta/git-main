@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Person.cpp"
 #include "Doctor.cpp"
 #include "Nurse.cpp"
@@ -6,6 +7,7 @@
 using namespace std;
 
 vector<Person*> listPerson;
+fstream MyFile;
 
 void displayMenu() {
     cout << "==================================================================== \n";
@@ -24,6 +26,7 @@ void displayMenu() {
 void addPerson() {
     Person temp;
     cin >> temp;
+    MyFile.open("data.txt",ios::app);
     if (temp.getUnit()=="Bác sĩ") {
         int tempDayDr,tempSur;
         cout << "Nhập số ngày làm việc: ";
@@ -31,6 +34,7 @@ void addPerson() {
         cout << "Nhập số ca phẫu thuật thực hiện: ";
         cin >> tempSur; cin.ignore();
         Person *p = new Doctor(temp.getName(),temp.getDob(),temp.getTel(),temp.getUnit(),tempDayDr,tempSur);
+        MyFile << p->getName() << ";" << p->getDob() << ";" << p->getTel() << ";" << p->getUnit() <<";" << "Số ngày làm việc: " << tempDayDr << ";" << "Số ca phẫu thuật thực hiện: " << tempSur << endl;
         listPerson.push_back(p);
     } else if (temp.getUnit()=="Y tá") {
         int tempDayNs,tempShift;
@@ -39,11 +43,14 @@ void addPerson() {
         cout << "Nhập số ca trực đêm: ";
         cin >> tempShift; cin.ignore();
         Person *p = new Nurse(temp.getName(),temp.getDob(),temp.getTel(),temp.getUnit(),tempDayNs,tempShift);
+        MyFile << p->getName() << ";" << p->getDob() << ";" << p->getTel() << ";" << p->getUnit() <<";" << "Số ngày làm việc: " << tempDayNs << ";" << "Số ca phẫu thuật thực hiện: " << tempShift << endl;
         listPerson.push_back(p);
     } else {
         Person *p = new Person(temp);
+        MyFile << p->getName() << ";" << p->getDob() << ";" << p->getTel() << ";" << p->getUnit() << endl;
         listPerson.push_back(p);
     }
+    MyFile.close();
 }
 
 void deletePerson() {}
@@ -78,7 +85,7 @@ void printlistPerson() {
 }
 
 int main() {
-    addPerson();
-    addPerson();
-    FindPersonHaveSalaryHigherThanX();
+    for (int i=0;i<3;i++) {
+        addPerson();
+    }
 }
