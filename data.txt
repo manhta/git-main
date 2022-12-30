@@ -1,3 +1,0 @@
-Mạnh;3;3;Bác sĩ;Số ngày làm việc: 3;Số ca phẫu thuật thực hiện: 3
-Mạnh;3;3;Y tá;Số ngày làm việc: 3;Số ca phẫu thuật thực hiện: 3
-Minh;231;131;bkhn
