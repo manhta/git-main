@@ -25,6 +25,9 @@ string Person::getName() {
 string Person::getTel() {
     return this->tel;
 }
+int Person::getWorkDay() {return 0;}
+int Person::getSurgery() {return 0;}
+int Person::getNightShift() {return 0;}
 long Person::salary() {return 0;}
 void Person::display() {
     cout << "Tên: " << name << endl;

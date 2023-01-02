@@ -18,6 +18,9 @@ class Person {
         string getUnit();
         string getName();
         string getTel();
+        virtual int getWorkDay();
+        virtual int getSurgery();
+        virtual int getNightShift();
         virtual long salary();
         virtual void display();
         friend istream& operator >> (istream& in, Person& a);
