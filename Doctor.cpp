@@ -7,28 +7,28 @@ const int salarySurgery = 2000000; // tien luong 1 ca phau thua
  
 class Doctor : public Person {
     private:
-        int workDayDr; // so ngay lam viec
+        int workDay; // so ngay lam viec
         int surgery; // so ca phau thuat
     public:
         Doctor() {}
-        Doctor(string name,string dob,string tel,string unit, int workDayDr, int surgery) : Person(name,dob,tel,unit) {
-            this->workDayDr = workDayDr;
+        Doctor(string name,string dob,string tel,string unit, int workDay, int surgery) : Person(name,dob,tel,unit) {
+            this->workDay = workDay;
+            this->surgery = surgery;
+        }
+        void setWorkDay(int workDay) {
+            this->workDay = workDay;
+        }
+        void setSurgery(int surgery) {
             this->surgery = surgery;
         }
         long salary() {
-            return workDayDr*salaryDr+surgery*salarySurgery;
+            return workDay*salaryDr+surgery*salarySurgery;
         }
-        int workDay() {
-            return this->workDayDr;
+        int getWorkDay() {
+            return this->workDay;
         }
         int getSurgery() {
             return this->surgery;
-        }
-        void display() {
-            Person::display();
-            cout << "Số ngày làm việc: " << workDayDr << endl;
-            cout << "Số ca phẫu thuật thực hiện: " << surgery<< endl;
-            cout << "Tiền lương: " << salary() << endl;
         }
         ~Doctor() {};
 };

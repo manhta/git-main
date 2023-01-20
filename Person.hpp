@@ -13,7 +13,14 @@ class Person {
     public:
         Person();
         Person(string name,string dob,string tel,string unit);
-        Person(const Person &temp);
+        Person(const Person &person);
+        void setName(string name);
+        void setDob(string dob);
+        void setUnit(string unit);
+        void setTel(string tel);
+        virtual void setWorkDay(int workDay);
+        virtual void setSurgery(int surgery);
+        virtual void setNightShift(int nightShift);
         string getDob();
         string getUnit();
         string getName();
@@ -22,7 +29,6 @@ class Person {
         virtual int getSurgery();
         virtual int getNightShift();
         virtual long salary();
-        virtual void display();
-        friend istream& operator >> (istream& in, Person& a);
+        friend istream& operator >> (istream& in, Person& person);
         virtual ~Person() {};
 };
