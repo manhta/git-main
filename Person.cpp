@@ -25,9 +25,9 @@ void Person::setUnit(string unit) {
 void Person::setTel(string tel) {
     this->tel = tel;
 }
-// void Person::setWorkDay(int workDay) {}
-// void Person::setSurgery(int surgery) {}
-// void Person::setNightShift(int nightShift) {}
+void Person::setWorkDay(int workDay) {}
+void Person::setSurgery(int surgery) {}
+void Person::setNightShift(int nightShift) {}
 string Person::getDob() {
     return this->dob;
 }
