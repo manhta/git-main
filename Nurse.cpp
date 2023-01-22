@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const int salaryNs = 200000; // tien luong 1 ngay cua y ta
+const int salaryNurse = 200000; // tien luong 1 ngay cua y ta
 const int salaryNightShift = 500000; // tien luong 1 dem truc
 class Nurse : public Person {
     private:
@@ -10,7 +10,7 @@ class Nurse : public Person {
         int nightShift; // so ngay truc dem 
     public:
         Nurse() {}
-        Nurse(string name,string dob, string tel, string unit, int workDay, int nightShift) : Person(name,dob,tel,unit) {
+        Nurse(string name,string dob, string tel, string unit, int month, int workDay, int nightShift) : Person(name,dob,tel,unit,month) {
             this->workDay = workDay;
             this->nightShift = nightShift;
         }
@@ -27,7 +27,7 @@ class Nurse : public Person {
             return this->nightShift;
         }
         long salary() {
-            return workDay*salaryNs+nightShift*salaryNightShift;
+            return workDay*salaryNurse+nightShift*salaryNightShift;
         }
         ~Nurse() {};
 };

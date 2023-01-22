@@ -2,16 +2,16 @@
 
 using namespace std;
 
-const int salaryDr = 500000; // tien luong 1 ngay cua bac si
+const int salaryDoctor = 500000; // tien luong 1 ngay cua bac si
 const int salarySurgery = 2000000; // tien luong 1 ca phau thua
  
 class Doctor : public Person {
-    private:
+    private: 
         int workDay; // so ngay lam viec
         int surgery; // so ca phau thuat
     public:
         Doctor() {}
-        Doctor(string name,string dob,string tel,string unit, int workDay, int surgery) : Person(name,dob,tel,unit) {
+        Doctor(string name,string dob,string tel,string unit, int month, int workDay, int surgery) : Person(name,dob,tel,unit,month) {
             this->workDay = workDay;
             this->surgery = surgery;
         }
@@ -22,7 +22,7 @@ class Doctor : public Person {
             this->surgery = surgery;
         }
         long salary() {
-            return workDay*salaryDr+surgery*salarySurgery;
+            return workDay*salaryDoctor+surgery*salarySurgery;
         }
         int getWorkDay() {
             return this->workDay;
