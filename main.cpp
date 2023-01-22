@@ -23,25 +23,30 @@ void DisplayMenu() {
     cout << "=              4.Xoa thong tin can bo                              =\n";
     cout << "=              5.Tim kiem can bo                                   =\n";
     cout << "=              6.Danh sach can bo co luong lon hon X(vnd)          =\n";
-    cout << "=              7.Sao luu du lieu                                   =\n";
+    cout << "=              7.Thong ke theo thang                               =\n";
+    cout << "=              8.Sao luu du lieu                                   =\n";
     cout << "=              0.Thoat!                                            =\n";
     cout << "====================================================================";
     cout << endl;
 }
 
-string getLastName(string namePerson) {
-    string lastName,token;
+/** 
+ * Hàm getFirstName() dùng để lấy tên cán bộ
+ * phục vụ cho việc sắp xếp cán bộ theo tên 
+ */
+string getFirstName(string namePerson) { // Tạ Đức Mạnh 20213995
+    string firstName,token;
     stringstream ss(namePerson);
     while (ss >> token) {
-        lastName = token;
+        firstName = token;
     }
-    return lastName;
+    return firstName;
 }
 
-void sortListPerson() {
+void sortListPerson() { // Tạ Đức Mạnh 20213995
     for (int i=0;i<ListPerson.size()-1;i++) {
         for (int j=i+1;j<ListPerson.size();j++) {
-            if (getLastName(ListPerson[i]->getName())>getLastName(ListPerson[j]->getName())) {
+            if (getFirstName(ListPerson[i]->getName())>getFirstName(ListPerson[j]->getName())) {
                 Person *tempPerson = ListPerson[i];
                 ListPerson[i] = ListPerson[j];
                 ListPerson[j] = tempPerson;
@@ -50,7 +55,18 @@ void sortListPerson() {
     }
 }
 
-void ReadDataFromFile() {
+void ReadDataFromFile() { // Tạ Đức Mạnh 20213995
+//****************************************************
+//  Đây là hàm dùng để đọc thông tin từ một file text(mỗi dòng của file chứa thông tin một cán bộ)
+//  gán thông tin của từng dòng vào một biến con trỏ kiểu Person sau đó đưa vào vector ListPerson.
+//  Các bước thực hiện:
+//      Bước 1: Phân tách các thông tin của một dòng, mỗi thông tin của cán bộ được lưu vào từng 
+//              phần tử của một vector tạm dùng để chứa thông tin của cán bộ
+//      Bước 2: Lưu thông tin cán bộ vào một biến con trỏ kiểu Person, trỏ vào đối tượng lớp Doctor
+//              nếu cán bộ là bác sĩ, trỏ vào đối tượng lớp Nurse nếu cán bộ là y tá
+//      Bước 3: Đ
+//      Bước 4: Lặp lại từ bước 1 cho đến khi đọc hết tất cả các dòng trong file
+//***************************************************
     DataFile.open("data.txt",ios::in);
     vector<string> tempStore;
     if (DataFile.is_open()) {
@@ -58,6 +74,8 @@ void ReadDataFromFile() {
             string tempString;
             getline(DataFile,tempString);
             stringstream ss(tempString);
+
+            // Phân tách thông tin một dòng mỗi thông tin cách nhau bởi dấu ';'
             while (getline(ss,tempString,';')) {
                 tempStore.push_back(tempString);
             }
@@ -66,18 +84,20 @@ void ReadDataFromFile() {
                 string tempDob = tempStore[1];
                 string tempTel = tempStore[2];
                 string tempUnit = tempStore[3];
-                int tempWorkDay = stoi(tempStore[4]);
-                int tempSurgery = stoi(tempStore[5]);
-                Person *tempPerson = new Doctor(tempName,tempDob,tempTel,tempUnit,tempWorkDay,tempSurgery);
+                int tempMonth = stoi(tempStore[4]);
+                int tempWorkDay = stoi(tempStore[5]);
+                int tempSurgery = stoi(tempStore[6]);
+                Person *tempPerson = new Doctor(tempName,tempDob,tempTel,tempUnit,tempMonth,tempWorkDay,tempSurgery);
                 ListPerson.push_back(tempPerson);
             } else if (tempStore[3] == "Y ta") {
                 string tempName = tempStore[0];
                 string tempDob = tempStore[1];
                 string tempTel = tempStore[2];
                 string tempUnit = tempStore[3];
-                int tempWorkDay = stoi(tempStore[4]);
-                int tempNightShift = stoi(tempStore[5]);
-                Person *tempPerson = new Nurse(tempName,tempDob,tempTel,tempUnit,tempWorkDay,tempNightShift);
+                int tempMonth = stoi(tempStore[4]);
+                int tempWorkDay = stoi(tempStore[5]);
+                int tempNightShift = stoi(tempStore[6]);
+                Person *tempPerson = new Nurse(tempName,tempDob,tempTel,tempUnit,tempMonth,tempWorkDay,tempNightShift);
                 ListPerson.push_back(tempPerson);
             }
             tempStore.erase(tempStore.begin(),tempStore.begin()+tempStore.size());
@@ -90,12 +110,13 @@ void ReadDataFromFile() {
     sortListPerson();
 }
 
-void printTableHeading() {
+void printTableHeading() { // Nguyễn Xuân Khánh 20213970
     for (int i=1;i<=4;i++)  cout <<"-"; cout << "+";
     for (int i=1;i<=21;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=15;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=8;i++)  cout <<"-"; cout << "+";
+    for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=18;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=18;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=16;i++) cout <<"-"; cout << "+";
@@ -106,6 +127,7 @@ void printTableHeading() {
     cout << left << setw(10) << "Ngay sinh" << right << setw(2) << "|";
     cout << left << setw(1) << " " << setw(13) << "So dien thoai" << right << setw(2) << "|";
     cout << left << setw(8) << " Don vi" << setw(2) << "|";
+    cout << left << setw(11) << "Thang nhap" << setw(2) << "|";
     cout << left << setw(17) << "So ngay lam viec" << setw(2) << "|";
     cout << left << setw(17) << "So ca phau thuat" << setw(2) << "|";
     cout << left << setw(15) << "So ca truc dem" << setw(2) << "|";
@@ -116,6 +138,7 @@ void printTableHeading() {
     for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=15;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=8;i++)  cout <<"-"; cout << "+";
+    for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=18;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=18;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=16;i++) cout <<"-"; cout << "+";
@@ -123,7 +146,7 @@ void printTableHeading() {
     cout << endl;
 }
 
-void printListPerson(vector<Person*> arrayPerson) {
+void printListPerson(vector<Person*> arrayPerson) { // Nguyễn Xuân Khánh 20213970
     cout << "Danh sach can bo" << endl;
     printTableHeading();
     for (int i=0;i<arrayPerson.size();i++) {
@@ -134,11 +157,13 @@ void printListPerson(vector<Person*> arrayPerson) {
         cout << " ";
         if (arrayPerson[i]->getUnit()== "Bac si") {
             cout << left << setw(7) << arrayPerson[i]->getUnit() << setw(2) << "|";
+            cout << left << setw(4) << " " << setw(7) << arrayPerson[i]->getMonth() << setw(2) << "|";
             cout << left << setw(8) << " " << setw(9) << arrayPerson[i]->getWorkDay() << setw(2) << "|";
             cout << left << setw(8) << " " << setw(9) << arrayPerson[i]->getSurgery() << setw(2) << "|";
             cout << left << setw(7) << " " << setw(8) << "X" << setw(2) << "|";
         } else if (arrayPerson[i]->getUnit() == "Y ta") {
             cout << left << setw(7) << arrayPerson[i]->getUnit() << setw(2) << "|";
+            cout << left << setw(4) << " " << setw(7) << arrayPerson[i]->getMonth() << setw(2) << "|";
             cout << left << setw(8) << " " << setw(9) << arrayPerson[i]->getWorkDay() << setw(2) << "|";
             cout << left << setw(8) << " " << setw(9) << "X" << setw(2) << "|";
             cout << left << setw(7) << " " << setw(8) << arrayPerson[i]->getNightShift() << setw(2) << "|";
@@ -151,6 +176,7 @@ void printListPerson(vector<Person*> arrayPerson) {
     for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=15;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=8;i++)  cout <<"-"; cout << "+";
+    for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=18;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=18;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=16;i++) cout <<"-"; cout << "+";
@@ -158,31 +184,31 @@ void printListPerson(vector<Person*> arrayPerson) {
     cout << endl;
 }
 
-void addPerson() { // Hàm thêm cán bộ
+void addPerson() { // Nguyễn Xuân Khánh 20213970
     Person tempPerson;
     cin >> tempPerson;
     if (tempPerson.getUnit()=="Bac si") {
-        int tempWorkDayDr,tempSurgery;
+        int tempWorkDay,tempSurgery;
         cout << "Nhap so ngay lam viec: ";
-        cin >> tempWorkDayDr;
+        cin >> tempWorkDay;
         cout << "Nhap so ca phau thuat thuc hien: ";
         cin >> tempSurgery; cin.ignore();
-        Person *p = new Doctor(tempPerson.getName(),tempPerson.getDob(),tempPerson.getTel(),tempPerson.getUnit(),tempWorkDayDr,tempSurgery);
+        Person *p = new Doctor(tempPerson.getName(),tempPerson.getDob(),tempPerson.getTel(),tempPerson.getUnit(),tempPerson.getMonth(),tempWorkDay,tempSurgery);
         ListPerson.push_back(p);
     } else if (tempPerson.getUnit()=="Y ta") {
-        int tempWorkDayNs,tempNightShift;
+        int tempWorkDay,tempNightShift;
         cout << "Nhap so ngay lam viec: ";
-        cin >> tempWorkDayNs;
+        cin >> tempWorkDay;
         cout << "Nhap so ca truc dem: ";
         cin >> tempNightShift; cin.ignore();
-        Person *p = new Nurse(tempPerson.getName(),tempPerson.getDob(),tempPerson.getTel(),tempPerson.getUnit(),tempWorkDayNs,tempNightShift);
+        Person *p = new Nurse(tempPerson.getName(),tempPerson.getDob(),tempPerson.getTel(),tempPerson.getUnit(),tempPerson.getMonth(),tempWorkDay,tempNightShift);
         ListPerson.push_back(p);
     }
     system("clear");
     cout << "Da them can bo vao danh sach!\n";
 }
 
-void modifyPersonInformation() {
+void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
     printListPerson(ListPerson);
     cout << "Chon STT can bo muon sua thong tin: ";
     int number_1; cin >> number_1;
@@ -190,13 +216,15 @@ void modifyPersonInformation() {
     cout << "(1)Sua ho ten\n";
     cout << "(2)Sua ngay thang nam sinh\n";
     cout << "(3)Sua so dien thoai\n";
-    cout << "(4)Sua so ngay lam viec\n";
-    cout << "(5)Sua so ca phau thuat/so ca truc dem\n";
+    cout << "(4)Sua don vi\n";
+    cout << "(5)Sua thang can bo duoc them vao\n";
+    cout << "(6)Sua so ngay lam viec\n";
+    cout << "(7)Sua so ca phau thuat/so ca truc dem\n";
     cout << "Chon thong tin muon chinh sua: ";
     int number_2; cin >> number_2;
+    system("clear");
     switch (number_2) {
         case 1: {
-            system("clear");
             printListPerson(ListPerson);
             cout << "Nhap ten moi: ";
             string newName; cin.ignore(); getline(cin,newName);
@@ -204,7 +232,6 @@ void modifyPersonInformation() {
             break;
         }
         case 2: {
-            system("clear");
             printListPerson(ListPerson);
             cout << "Nhap ngay thang nam sinh moi: ";
             string newDob; cin.ignore(); getline(cin,newDob);
@@ -212,23 +239,35 @@ void modifyPersonInformation() {
             break;
         }
         case 3: {
-            system("clear");
             printListPerson(ListPerson);
             cout << "Nhap so dien thoai moi: ";
             string newTel; cin.ignore(); getline(cin,newTel);
-            ListPerson[number_1]->setTel(newTel);
+            ListPerson[number_1-1]->setTel(newTel);
             break;
         }
         case 4: {
-            system("clear");
+            printListPerson(ListPerson);
+            cout << "Nhap don vi moi: ";
+            string newUnit; cin.ignore(); getline(cin,newUnit);
+            ListPerson[number_1-1]->setUnit(newUnit);
+            break;
+        }
+        case 5: {
+            printListPerson(ListPerson);
+            cout << "Nhap thang can bo duoc them: ";
+            int month; cin >> month;
+            ListPerson[number_1-1]->setMonth(month);
+            break;
+        }
+        case 6: {
             printListPerson(ListPerson);
             cout << "Nhap so ngay lam viec moi: ";
             int newWorkDay; cin >> newWorkDay;
             ListPerson[number_1-1]->setWorkDay(newWorkDay);
+            cin.ignore();
             break;
         }
-        case 5: {
-            system("clear");
+        case 7: {
             printListPerson(ListPerson);
             cout << "Nhap so ca phau thuat/so ca truc dem moi: ";
             if (ListPerson[number_1-1]->getUnit() == "Bac si") {
@@ -238,6 +277,7 @@ void modifyPersonInformation() {
                 int newNightShift; cin >> newNightShift;
                 ListPerson[number_1-1]->setNightShift(newNightShift);
             }
+            cin.ignore();
             break;
         }
     }
@@ -245,7 +285,7 @@ void modifyPersonInformation() {
     cout << "Thong tin da duoc chinh sua!" << endl;
 }
 
-void deletePerson() {
+void deletePerson() { // Tạ Đức Mạnh 20213995
     printListPerson(ListPerson);
     cout << "Chon STT can bo muon xoa: ";
     int number_1; cin >> number_1;
@@ -258,7 +298,15 @@ void deletePerson() {
     cout << "Can bo da duoc xoa!" << endl;
 }
 
-void findPersonByName() {
+void findPersonByName() { // Nguyễn Xuân Khánh 20213970
+//****************************************************
+//  Đây là hàm dùng tìm kiếm cán bộ theo kí tự được người dùng nhập vào.
+//  Các bước thực hiện:
+//      Bước 1: Chuyển toàn bộ các kí tự do người dùng nhập vào thành chữ cái in hoa
+//              Chuyển toàn bộ các kí tự trong tên cán bộ thành chữ cái in hoa.
+//      Bước 2: Nếu trong tên cán bộ có chứa kí tự do người dùng nhập vào thì push vào
+//              vector result.
+//***************************************************
     vector<Person*> result;
     string inputName;
     cout << "Nhap ten(ki tu co trong ten) can bo: ";
@@ -271,7 +319,7 @@ void findPersonByName() {
         for (int j=0;j<ListPerson[i]->getName().size();j++) {
             tempPersonName += toupper((ListPerson[i]->getName())[j]);
         }
-        if (tempPersonName.find(tempInputName,0) != string::npos) {
+        if (tempPersonName.find(tempInputName) != string::npos) {
             result.push_back(ListPerson[i]);
         }
     }
@@ -279,7 +327,7 @@ void findPersonByName() {
     printListPerson(result);
 }
 
-void findPersonHaveSalaryHigherThanX() {
+void findPersonHaveSalaryHigherThanX() { // Nguyễn Xuân Khánh 20213970
     long long X;
     cout << "Nhap so tien muon so sanh(vnd): ";cin >> X;
     vector<Person*> result;
@@ -288,6 +336,7 @@ void findPersonHaveSalaryHigherThanX() {
             result.push_back(ListPerson[i]);
         }
     }
+    system("clear");
     if (result.size()==0) {
         cout << "Khong co ai co tien luon lon hon: " << X << "(vnd)"<<endl;
     } else {
@@ -295,21 +344,37 @@ void findPersonHaveSalaryHigherThanX() {
     }
 }
 
-void BackUpData() {
+void findPersonByMonth() { // Nguyễn Xuân Khánh 20213970
+    cout << "Nhap thang: ";
+    int tempMonth; cin >> tempMonth;
+    vector<Person*> result;
+    for (int i=0;i<ListPerson.size();i++) {
+        if (ListPerson[i]->getMonth() == tempMonth) {
+            result.push_back(ListPerson[i]);
+        }
+    }
+    printListPerson(result);
+}
+/**
+ * Ghi thông tin của từng cán bộ vào file data.txt theo mẫu:
+ * tên;ngày sinh;số điện thoại;đơn vị;tháng được thêm vào;số ngày làm việc;số ca phẫu thuật;
+ * số ca trực đêm;tiền lương
+ */
+void BackUpData() { // Tạ Đức Mạnh 20213995
     sortListPerson();
     DataFile.open("data.txt",ios::out);
     for (int i=0;i<ListPerson.size();i++) {
         if (i == ListPerson.size()-1){
             if (ListPerson[i]->getUnit()=="Bac si") {
-                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getSurgery() << ";" << ListPerson[i]->salary();
+                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getMonth() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getSurgery() << ";" << ListPerson[i]->salary();
             } else if (ListPerson[i]->getUnit()=="Y ta") {
-                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getNightShift() << ";" << ListPerson[i]->salary();
+                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getMonth() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getNightShift() << ";" << ListPerson[i]->salary();
             }
         } else {
             if (ListPerson[i]->getUnit()=="Bac si") {
-                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getSurgery() << ";" << ListPerson[i]->salary() << endl;
+                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getMonth() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getSurgery() << ";" << ListPerson[i]->salary() << endl;
             } else if (ListPerson[i]->getUnit()=="Y ta") {
-                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getNightShift() << ";" << ListPerson[i]->salary() << endl;
+                DataFile << ListPerson[i]->getName() << ";" << ListPerson[i]->getDob() << ";" << ListPerson[i]->getTel() << ";" << ListPerson[i]->getUnit() << ";" << ListPerson[i]->getMonth() << ";" << ListPerson[i]->getWorkDay() << ";" << ListPerson[i]->getNightShift() << ";" << ListPerson[i]->salary() << endl;
             }
         }
     }
@@ -341,7 +406,6 @@ int main() {
             }
             case 3: {
                 modifyPersonInformation();
-                cin.ignore();
                 cout << "Nhap phim bat ky de thoat: ";
                 cin.get();
                 break;
@@ -368,9 +432,16 @@ int main() {
                 break;
             }
             case 7: {
+                findPersonByMonth();
+                cin.ignore();
+                cout << "Nhap phim bat ky de thoat: ";
+                cin.get();
+                break;
+            }
+            case 8: {
                 BackUpData();
                 cin.ignore();
-                cout << "Nhap phim bat ky de thoat";
+                cout << "Nhap phim bat ky de thoat: ";
                 cin.get();
                 break;
             }
