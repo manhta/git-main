@@ -114,7 +114,7 @@ void ReadDataFromFile() { // Tạ Đức Mạnh 20213995
 
 void printTableHeading() { // Nguyễn Xuân Khánh 20213970
     for (int i=1;i<=4;i++)  cout <<"-"; cout << "+";
-    for (int i=1;i<=21;i++) cout <<"-"; cout << "+";
+    for (int i=1;i<=24;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=15;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=8;i++)  cout <<"-"; cout << "+";
@@ -125,7 +125,7 @@ void printTableHeading() { // Nguyễn Xuân Khánh 20213970
     for (int i=1;i<=16;i++) cout <<"-"; cout << "+";
     cout << endl;
     cout << left << setw(4) << "STT" << setw(2) << "|";
-    cout << left << setw(20) << "Ho va ten" << setw(2) << "|";
+    cout << left << setw(22) << "Ho va ten" << right << setw(2) << "|" << left << " ";
     cout << left << setw(10) << "Ngay sinh" << right << setw(2) << "|";
     cout << left << setw(1) << " " << setw(13) << "So dien thoai" << right << setw(2) << "|";
     cout << left << setw(8) << " Don vi" << setw(2) << "|";
@@ -136,7 +136,7 @@ void printTableHeading() { // Nguyễn Xuân Khánh 20213970
     cout << left << setw(14) << "Tien luong(vnd)" << setw(2) << "|";
     cout << endl; 
     for (int i=1;i<=4;i++)  cout <<"-"; cout << "+";
-    for (int i=1;i<=21;i++) cout <<"-"; cout << "+";
+    for (int i=1;i<=24;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=15;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=8;i++)  cout <<"-"; cout << "+";
@@ -153,7 +153,7 @@ void printListPerson(vector<Person*> arrayPerson) { // Nguyễn Xuân Khánh 202
     printTableHeading();
     for (int i=0;i<arrayPerson.size();i++) {
         cout << left << setw(4) << i+1 << setw(2) << "|";
-        cout << left << setw(20) << arrayPerson[i]->getName() << setw(2) << "|";
+        cout << left << setw(22) << arrayPerson[i]->getName() << right << setw(2) << "|" << left << " ";
         cout << left << setw(10) << arrayPerson[i]->getDob() << right << setw(2) << "|";
         cout << left << setw(1) << " " << setw(13) << arrayPerson[i]->getTel() << right << setw(2) << "|";
         cout << " ";
@@ -174,7 +174,7 @@ void printListPerson(vector<Person*> arrayPerson) { // Nguyễn Xuân Khánh 202
         cout << endl;
     }
     for (int i=1;i<=4;i++)  cout <<"-"; cout << "+";
-    for (int i=1;i<=21;i++) cout <<"-"; cout << "+";
+    for (int i=1;i<=24;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=12;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=15;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=8;i++)  cout <<"-"; cout << "+";
