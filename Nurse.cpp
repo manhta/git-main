@@ -1,9 +1,11 @@
+// Nguyễn Xuân Khánh 20213970
 #include "Person.hpp"
 
 using namespace std;
 
 const int salaryNurse = 200000; // tien luong 1 ngay cua y ta
 const int salaryNightShift = 500000; // tien luong 1 dem truc
+
 class Nurse : public Person {
     private:
         int workDay; // so ngay lam viec cua y ta

@@ -16,24 +16,26 @@ fstream DataFile;
 void DisplayMenu() {
     cout << "====================================================================\n";
     cout << "=                      QUAN LY BENH VIEN                           =\n";
-    cout << "==================================================================== \n";
+    cout << "====================================================================\n";
     cout << "=              1.In thong tin can bo                               =\n";                              
     cout << "=              2.Them can bo                                       =\n";
     cout << "=              3.Chinh sua thong tin can bo                        =\n";
     cout << "=              4.Xoa thong tin can bo                              =\n";
     cout << "=              5.Tim kiem can bo                                   =\n";
-    cout << "=              6.Danh sach can bo co luong lon hon X(vnd)          =\n";
-    cout << "=              7.Thong ke theo thang                               =\n";
-    cout << "=              8.Sao luu du lieu                                   =\n";
+    cout << "=              6.Danh sach bac si                                  =\n";
+    cout << "=              7.Danh sach y ta                                    =\n";
+    cout << "=              8.Danh sach can bo co tien luong lon hon X(vnd)     =\n";
+    cout << "=              9.Thong ke theo thang                               =\n";
+    cout << "=              10.Sao luu du lieu                                  =\n";
     cout << "=              0.Thoat!                                            =\n";
     cout << "====================================================================";
     cout << endl;
 }
 
-/** 
- * Hàm getFirstName() dùng để lấy tên cán bộ
- * phục vụ cho việc sắp xếp cán bộ theo tên 
- */
+//*********************************************
+//  Hàm getFirstName() dùng để lấy tên cán bộ
+//  phục vụ cho việc sắp xếp cán bộ theo tên 
+//*********************************************
 string getFirstName(string namePerson) { // Tạ Đức Mạnh 20213995
     string firstName,token;
     stringstream ss(namePerson);
@@ -64,7 +66,7 @@ void ReadDataFromFile() { // Tạ Đức Mạnh 20213995
 //              phần tử của một vector tạm dùng để chứa thông tin của cán bộ
 //      Bước 2: Lưu thông tin cán bộ vào một biến con trỏ kiểu Person, trỏ vào đối tượng lớp Doctor
 //              nếu cán bộ là bác sĩ, trỏ vào đối tượng lớp Nurse nếu cán bộ là y tá
-//      Bước 3: Đ
+//      Bước 3: Dùng hàm push_back() để thêm thông tin cán bộ vào vector ListPerson
 //      Bước 4: Lặp lại từ bước 1 cho đến khi đọc hết tất cả các dòng trong file
 //***************************************************
     DataFile.open("data.txt",ios::in);
@@ -144,7 +146,7 @@ void printTableHeading() { // Nguyễn Xuân Khánh 20213970
     for (int i=1;i<=16;i++) cout <<"-"; cout << "+";
     for (int i=1;i<=16;i++) cout <<"-"; cout << "+";
     cout << endl;
-}
+} 
 
 void printListPerson(vector<Person*> arrayPerson) { // Nguyễn Xuân Khánh 20213970
     cout << "Danh sach can bo" << endl;
@@ -327,6 +329,26 @@ void findPersonByName() { // Nguyễn Xuân Khánh 20213970
     printListPerson(result);
 }
 
+vector<Person*> DoctorList() { // Tạ Đức Mạnh 20213995
+    vector<Person*> result;
+    for (int i=0;i<ListPerson.size();i++) {
+        if (ListPerson[i]->getUnit()=="Bac si") {
+            result.push_back(ListPerson[i]);
+        }
+    }
+    return result;
+}
+
+vector<Person*> NurseList() { // Nguyễn Xuân Khánh 20213970
+    vector<Person*> result;
+    for (int i=0;i<ListPerson.size();i++) {
+        if (ListPerson[i]->getUnit()=="Y ta") {
+            result.push_back(ListPerson[i]);
+        }
+    }
+    return result;
+}
+
 void findPersonHaveSalaryHigherThanX() { // Nguyễn Xuân Khánh 20213970
     long long X;
     cout << "Nhap so tien muon so sanh(vnd): ";cin >> X;
@@ -344,8 +366,8 @@ void findPersonHaveSalaryHigherThanX() { // Nguyễn Xuân Khánh 20213970
     }
 }
 
-void findPersonByMonth() { // Nguyễn Xuân Khánh 20213970
-    cout << "Nhap thang: ";
+void StatByMonth() { // Nguyễn Xuân Khánh 20213970
+    cout << "Nhap thang muon thong ke: ";
     int tempMonth; cin >> tempMonth;
     vector<Person*> result;
     for (int i=0;i<ListPerson.size();i++) {
@@ -355,6 +377,7 @@ void findPersonByMonth() { // Nguyễn Xuân Khánh 20213970
     }
     printListPerson(result);
 }
+
 /**
  * Ghi thông tin của từng cán bộ vào file data.txt theo mẫu:
  * tên;ngày sinh;số điện thoại;đơn vị;tháng được thêm vào;số ngày làm việc;số ca phẫu thuật;
@@ -425,20 +448,34 @@ int main() {
                 break;
             }
             case 6: {
+                printListPerson(DoctorList());
+                cin.ignore();
+                cout << "Nhan phim bat ky de thoat";
+                cin.get();
+                break;
+            }
+            case 7: {
+                printListPerson(NurseList());
+                cin.ignore();
+                cout << "Nhan phim bat ky de thoat";
+                cin.get();
+                break;
+            }
+            case 8: {
                 findPersonHaveSalaryHigherThanX();
                 cin.ignore();
                 cout << "Nhap phim bat ky de thoat: ";
                 cin.get();
                 break;
             }
-            case 7: {
-                findPersonByMonth();
+            case 9: {
+                StatByMonth();
                 cin.ignore();
                 cout << "Nhap phim bat ky de thoat: ";
                 cin.get();
                 break;
             }
-            case 8: {
+            case 10: {
                 BackUpData();
                 cin.ignore();
                 cout << "Nhap phim bat ky de thoat: ";

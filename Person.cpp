@@ -1,3 +1,4 @@
+// Tạ Đức Mạnh 20213995
 #include "Person.hpp"
 
 Person::Person() {}
@@ -57,6 +58,6 @@ istream& operator >> (istream& in, Person& person) {
     cout << "Nhap ngay thang nam sinh can bo(theo dinh dang dd/mm/yyyy): ";in >> person.dob;
     cout << "Nhap so dien thoai can bo: ";in.ignore();in >> person.tel;
     cout << "Nhap don vi: ";in.ignore();getline(in,person.unit);
-    cout << "Nhap thang them can bo: "; cin >> person.month;
+    cout << "Thang can bo duoc them vao: "; cin >> person.month;
     return in;
 }
