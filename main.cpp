@@ -32,10 +32,13 @@ void DisplayMenu() {
     cout << endl;
 }
 
-//*********************************************
-//  Hàm getFirstName() dùng để lấy tên cán bộ
-//  phục vụ cho việc sắp xếp cán bộ theo tên 
-//*********************************************
+/**
+ * Nhận vào một string là tên đầy đủ của cán bộ, trả về tên riêng của cán bộ
+ * 
+ *  @arg: namePerson-họ và tên đầy đủ của cán bộ
+ * 
+ *  @return: tên của cán bộ.
+ */
 string getFirstName(string namePerson) { // Tạ Đức Mạnh 20213995
     string firstName,token;
     stringstream ss(namePerson);
@@ -57,18 +60,19 @@ void sortListPerson() { // Tạ Đức Mạnh 20213995
     }
 }
 
+/**
+ * Hàm đọc dữ liệu từ một file và lưu trữ ở vector có kiểu dữ liệu là con trỏ kiểu Person.
+ */
 void ReadDataFromFile() { // Tạ Đức Mạnh 20213995
-//****************************************************
-//  Đây là hàm dùng để đọc thông tin từ một file text(mỗi dòng của file chứa thông tin một cán bộ)
-//  gán thông tin của từng dòng vào một biến con trỏ kiểu Person sau đó đưa vào vector ListPerson.
-//  Các bước thực hiện:
-//      Bước 1: Phân tách các thông tin của một dòng, mỗi thông tin của cán bộ được lưu vào từng 
-//              phần tử của một vector tạm dùng để chứa thông tin của cán bộ
-//      Bước 2: Lưu thông tin cán bộ vào một biến con trỏ kiểu Person, trỏ vào đối tượng lớp Doctor
-//              nếu cán bộ là bác sĩ, trỏ vào đối tượng lớp Nurse nếu cán bộ là y tá
-//      Bước 3: Dùng hàm push_back() để thêm thông tin cán bộ vào vector ListPerson
-//      Bước 4: Lặp lại từ bước 1 cho đến khi đọc hết tất cả các dòng trong file
-//***************************************************
+/**
+ * Các bước thực hiện của hàm:
+ *      Bước 1: Phân tách các thông tin của một dòng, mỗi thông tin của cán bộ được lưu vào từng 
+ *              phần tử của một vector tạm dùng để chứa thông tin của cán bộ
+ *      Bước 2: Lưu thông tin cán bộ vào một biến con trỏ kiểu Person, trỏ vào đối tượng lớp Doctor
+ *              nếu cán bộ là bác sĩ, trỏ vào đối tượng lớp Nurse nếu cán bộ là y tá
+ *      Bước 3: Dùng hàm push_back() để thêm thông tin cán bộ vào vector ListPerson
+ *      Bước 4: Lặp lại từ bước 1 cho đến khi đọc hết tất cả các dòng trong file
+ */
     DataFile.open("data.txt",ios::in);
     vector<string> tempStore;
     if (DataFile.is_open()) {
@@ -112,6 +116,9 @@ void ReadDataFromFile() { // Tạ Đức Mạnh 20213995
     sortListPerson();
 }
 
+/**
+ * Hàm dùng để in tiêu đề các cột của bảng.
+ */
 void printTableHeading() { // Nguyễn Xuân Khánh 20213970
     for (int i=1;i<=4;i++)  cout <<"-"; cout << "+";
     for (int i=1;i<=24;i++) cout <<"-"; cout << "+";
@@ -186,6 +193,9 @@ void printListPerson(vector<Person*> arrayPerson) { // Nguyễn Xuân Khánh 202
     cout << endl;
 }
 
+/**
+ * Hàm thêm cán bộ vào danh sách
+ */
 void addPerson() { // Nguyễn Xuân Khánh 20213970
     Person tempPerson;
     cin >> tempPerson;
@@ -210,6 +220,9 @@ void addPerson() { // Nguyễn Xuân Khánh 20213970
     cout << "Da them can bo vao danh sach!\n";
 }
 
+/**
+ * Hàm dùng để chỉnh sửa thông tin cán bộ có trong danh sách.
+ */
 void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
     printListPerson(ListPerson);
     cout << "Chon STT can bo muon sua thong tin: ";
@@ -227,42 +240,42 @@ void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
     system("clear");
     switch (number_2) {
         case 1: {
-            printListPerson(ListPerson);
+            cout << "Ten cu: " << ListPerson[number_1-1]->getName() << endl;
             cout << "Nhap ten moi: ";
             string newName; cin.ignore(); getline(cin,newName);
             ListPerson[number_1-1]->setName(newName);
             break;
         }
         case 2: {
-            printListPerson(ListPerson);
+            cout << "Ngay thang nam sinh cu: " << ListPerson[number_1-1]->getDob() << endl;
             cout << "Nhap ngay thang nam sinh moi: ";
             string newDob; cin.ignore(); getline(cin,newDob);
             ListPerson[number_1-1]->setDob(newDob);
             break;
         }
         case 3: {
-            printListPerson(ListPerson);
+            cout << "So dien thoai cu: " << ListPerson[number_1-1]->getTel() << endl;
             cout << "Nhap so dien thoai moi: ";
             string newTel; cin.ignore(); getline(cin,newTel);
             ListPerson[number_1-1]->setTel(newTel);
             break;
         }
         case 4: {
-            printListPerson(ListPerson);
+            cout << "Don vi cu: " << ListPerson[number_1-1]->getUnit() << endl;
             cout << "Nhap don vi moi: ";
             string newUnit; cin.ignore(); getline(cin,newUnit);
             ListPerson[number_1-1]->setUnit(newUnit);
             break;
         }
         case 5: {
-            printListPerson(ListPerson);
-            cout << "Nhap thang can bo duoc them: ";
+            cout << "Thang duoc them cu: " << ListPerson[number_1-1]->getMonth() << endl;
+            cout << "Nhap thang can bo duoc them moi: ";
             int month; cin >> month;
             ListPerson[number_1-1]->setMonth(month);
             break;
         }
         case 6: {
-            printListPerson(ListPerson);
+            cout << "So ngay lam viec cu: " << ListPerson[number_1-1]->getWorkDay() << endl;
             cout << "Nhap so ngay lam viec moi: ";
             int newWorkDay; cin >> newWorkDay;
             ListPerson[number_1-1]->setWorkDay(newWorkDay);
@@ -270,12 +283,14 @@ void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
             break;
         }
         case 7: {
-            printListPerson(ListPerson);
-            cout << "Nhap so ca phau thuat/so ca truc dem moi: ";
             if (ListPerson[number_1-1]->getUnit() == "Bac si") {
+                cout << "So ca phau thuat cu: " << ListPerson[number_1-1]->getSurgery() << endl;
+                cout << "Nhap so ca phau thuat moi: ";
                 int newSurgery; cin >> newSurgery;
                 ListPerson[number_1-1]->setSurgery(newSurgery);
             } else if (ListPerson[number_1-1]->getUnit() == "Y ta") {
+                cout << "So ca truc dem cu: " << ListPerson[number_1-1]->getNightShift() << endl;
+                cout << "Nhap so ca truc dem moi: ";
                 int newNightShift; cin >> newNightShift;
                 ListPerson[number_1-1]->setNightShift(newNightShift);
             }
@@ -287,6 +302,9 @@ void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
     cout << "Thong tin da duoc chinh sua!" << endl;
 }
 
+/**
+ * Xoá một cán bộ có trong danh sách.
+ */
 void deletePerson() { // Tạ Đức Mạnh 20213995
     printListPerson(ListPerson);
     cout << "Chon STT can bo muon xoa: ";
@@ -300,6 +318,9 @@ void deletePerson() { // Tạ Đức Mạnh 20213995
     cout << "Can bo da duoc xoa!" << endl;
 }
 
+/**
+ * Tìm kiếm một(nhiều) cán bộ theo kí tự được nhập vào từ người dùng.
+ */
 void findPersonByName() { // Nguyễn Xuân Khánh 20213970
 //****************************************************
 //  Đây là hàm dùng tìm kiếm cán bộ theo kí tự được người dùng nhập vào.
@@ -330,25 +351,28 @@ void findPersonByName() { // Nguyễn Xuân Khánh 20213970
 }
 
 vector<Person*> DoctorList() { // Tạ Đức Mạnh 20213995
-    vector<Person*> result;
+    vector<Person*> doctor;
     for (int i=0;i<ListPerson.size();i++) {
         if (ListPerson[i]->getUnit()=="Bac si") {
-            result.push_back(ListPerson[i]);
+            doctor.push_back(ListPerson[i]);
         }
     }
-    return result;
+    return doctor;
 }
 
 vector<Person*> NurseList() { // Nguyễn Xuân Khánh 20213970
-    vector<Person*> result;
+    vector<Person*> nurse;
     for (int i=0;i<ListPerson.size();i++) {
         if (ListPerson[i]->getUnit()=="Y ta") {
-            result.push_back(ListPerson[i]);
+            nurse.push_back(ListPerson[i]);
         }
     }
-    return result;
+    return nurse;
 }
 
+/**
+ * Tìm kiếm và in ra màn hình tất cả cán bộ có tiền lương lớn hơn một số X nhập vào.
+ */
 void findPersonHaveSalaryHigherThanX() { // Nguyễn Xuân Khánh 20213970
     long long X;
     cout << "Nhap so tien muon so sanh(vnd): ";cin >> X;
@@ -366,6 +390,9 @@ void findPersonHaveSalaryHigherThanX() { // Nguyễn Xuân Khánh 20213970
     }
 }
 
+/**
+ * Hàm dùng để thống kê cán bộ theo tháng mà cán bộ được thêm vào danh sách.
+ */
 void StatByMonth() { // Nguyễn Xuân Khánh 20213970
     cout << "Nhap thang muon thong ke: ";
     int tempMonth; cin >> tempMonth;
@@ -381,7 +408,7 @@ void StatByMonth() { // Nguyễn Xuân Khánh 20213970
 /**
  * Ghi thông tin của từng cán bộ vào file data.txt theo mẫu:
  * tên;ngày sinh;số điện thoại;đơn vị;tháng được thêm vào;số ngày làm việc;số ca phẫu thuật;
- * số ca trực đêm;tiền lương
+ * số ca trực đêm;tiền lương.
  */
 void BackUpData() { // Tạ Đức Mạnh 20213995
     sortListPerson();
@@ -429,6 +456,7 @@ int main() {
             }
             case 3: {
                 modifyPersonInformation();
+                cin.ignore();
                 cout << "Nhap phim bat ky de thoat: ";
                 cin.get();
                 break;
@@ -450,14 +478,14 @@ int main() {
             case 6: {
                 printListPerson(DoctorList());
                 cin.ignore();
-                cout << "Nhan phim bat ky de thoat";
+                cout << "Nhan phim bat ky de thoat: ";
                 cin.get();
                 break;
             }
             case 7: {
                 printListPerson(NurseList());
                 cin.ignore();
-                cout << "Nhan phim bat ky de thoat";
+                cout << "Nhan phim bat ky de thoat: ";
                 cin.get();
                 break;
             }
