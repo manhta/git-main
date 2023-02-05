@@ -1,5 +1,5 @@
-#include <iostream>
-#include <iomanip>
+#include <iostream>  
+#include <iomanip> 
 #include <fstream>
 #include <vector>
 #include <sstream>
@@ -20,7 +20,7 @@ void DisplayMenu() {
     cout << "=              1.In thong tin can bo                               =\n";                              
     cout << "=              2.Them can bo                                       =\n";
     cout << "=              3.Chinh sua thong tin can bo                        =\n";
-    cout << "=              4.Xoa thong tin can bo                              =\n";
+    cout << "=              4.Xoa can bo                                        =\n";
     cout << "=              5.Tim kiem can bo                                   =\n";
     cout << "=              6.Danh sach bac si                                  =\n";
     cout << "=              7.Danh sach y ta                                    =\n";
@@ -81,7 +81,7 @@ void ReadDataFromFile() { // Tạ Đức Mạnh 20213995
             getline(DataFile,tempString);
             stringstream ss(tempString);
 
-            // Phân tách thông tin một dòng mỗi thông tin cách nhau bởi dấu ';'
+            // Phân tách thông tin của một dòng, mỗi thông tin cách nhau bởi dấu ';'
             while (getline(ss,tempString,';')) {
                 tempStore.push_back(tempString);
             }
@@ -264,7 +264,11 @@ void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
             cout << "Don vi cu: " << ListPerson[number_1-1]->getUnit() << endl;
             cout << "Nhap don vi moi: ";
             string newUnit; cin.ignore(); getline(cin,newUnit);
-            ListPerson[number_1-1]->setUnit(newUnit);
+            if (newUnit == "Y ta") {
+                ListPerson[number_1-1] = new Nurse(ListPerson[number_1-1]->getName(),ListPerson[number_1-1]->getDob(),ListPerson[number_1-1]->getTel(),newUnit,ListPerson[number_1-1]->getMonth(),ListPerson[number_1-1]->getWorkDay(),ListPerson[number_1-1]->getSurgery());
+            } else if (newUnit == "Bac si") {
+                ListPerson[number_1-1] = new Doctor(ListPerson[number_1-1]->getName(),ListPerson[number_1-1]->getDob(),ListPerson[number_1-1]->getTel(),newUnit,ListPerson[number_1-1]->getMonth(),ListPerson[number_1-1]->getWorkDay(),ListPerson[number_1-1]->getNightShift());
+            }
             break;
         }
         case 5: {
@@ -272,6 +276,7 @@ void modifyPersonInformation() { // Tạ Đức Mạnh 20213995
             cout << "Nhap thang can bo duoc them moi: ";
             int month; cin >> month;
             ListPerson[number_1-1]->setMonth(month);
+            cin.ignore();
             break;
         }
         case 6: {
@@ -456,7 +461,6 @@ int main() {
             }
             case 3: {
                 modifyPersonInformation();
-                cin.ignore();
                 cout << "Nhap phim bat ky de thoat: ";
                 cin.get();
                 break;
